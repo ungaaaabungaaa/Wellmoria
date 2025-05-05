@@ -1,13 +1,12 @@
-// index.js
+// app/index.js (or index.tsx if using TypeScript)
+
 import Login from "@/app/login";
 import Profile from "@/app/profile";
 import Register from "@/app/register";
 import { auth } from "@/firebaseConfig";
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-
 import { Mulish_700Bold, useFonts } from "@expo-google-fonts/mulish";
 
 const Stack = createNativeStackNavigator();
@@ -29,17 +28,15 @@ export default function Index() {
   if (!fontsLoaded || loading) return null;
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {user ? (
-          <Stack.Screen name="Profile" component={Profile} />
-        ) : (
-          <>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {user ? (
+        <Stack.Screen name="Profile" component={Profile} />
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+        </>
+      )}
+    </Stack.Navigator>
   );
 }
