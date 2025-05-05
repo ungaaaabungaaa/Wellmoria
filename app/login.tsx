@@ -1,8 +1,8 @@
 // Login.js
-import React, { useState } from "react";
-import { View, TextInput, Button, Text, Alert } from "react-native";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
@@ -17,24 +17,78 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <View style={{ padding: 20, flex: 1, justifyContent: "center" }}>
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome Back</Text>
+
       <TextInput
         placeholder="Email"
+        placeholderTextColor="#8b5e3c"
         value={email}
         onChangeText={setEmail}
-        style={{ borderBottomWidth: 1, marginBottom: 10 }}
+        style={styles.input}
       />
       <TextInput
         placeholder="Password"
+        placeholderTextColor="#8b5e3c"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
-        style={{ borderBottomWidth: 1, marginBottom: 10 }}
+        style={styles.input}
       />
-      <Button title="Login" onPress={loginHandler} />
-      <Text style={{ marginTop: 20 }} onPress={() => navigation.navigate("Register")}>
-        Don't have an account? Register
+
+      <TouchableOpacity style={styles.button} onPress={loginHandler}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.registerText} onPress={() => navigation.navigate("Register")}>
+        Don't have an account? <Text style={styles.link}>Register</Text>
       </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#f7d2b7",
+    flex: 1,
+    justifyContent: "center",
+    padding: 30,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#5a2d0c",
+    marginBottom: 30,
+    textAlign: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#5a2d0c",
+    backgroundColor: "#fff4ec",
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 15,
+    color: "#5a2d0c",
+  },
+  button: {
+    backgroundColor: "#5a2d0c",
+    paddingVertical: 12,
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#f7d2b7",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 16,
+  },
+  registerText: {
+    marginTop: 20,
+    textAlign: "center",
+    color: "#5a2d0c",
+  },
+  link: {
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+  },
+});
